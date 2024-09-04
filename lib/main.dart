@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF01395E)),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -101,87 +101,121 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                controller: userNameControlled,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: const BorderSide(
-                            color: Colors.transparent, width: 0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide:
-                            const BorderSide(color: Colors.black38, width: 1)),
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 16),
-                    fillColor: const Color(0xfff5f6fa),
-                    hintText: "Username",
-                    hintStyle: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w400)),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                controller: passwordControlled,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: const BorderSide(
-                            color: Colors.transparent, width: 0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide:
-                            const BorderSide(color: Colors.black38, width: 1)),
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 16),
-                    fillColor: const Color(0xfff5f6fa),
-                    hintText: "Username",
-                    hintStyle: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w400)),
-              ),
-            ),
-            const SizedBox(height: 40),
-            Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: ElevatedButton(
-                    onPressed: makeLogin,
-                    style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(Colors.blue),
-                        minimumSize: WidgetStateProperty.all(
-                            Size(MediaQuery.of(context).size.width, 50))),
-                    child: const Text(
-                      "Iniciar sesión",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ))),
-          ],
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [_header(context), _fields(context)],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  _header(context) {
+    return const Column(children: [
+      Text("Bienvenido",
+          style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF01395E))),
+      Text("Ingresa tus credenciales",
+          style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+              color: Color(0xFF01395E))),
+    ]);
+  }
+
+  _fields(context) {
+    return Column(
+      children: [
+        Container(
+            padding: const EdgeInsets.symmetric(horizontal: 50),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("Usuario",
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF01395E))),
+                TextField(
+                  controller: userNameControlled,
+                  style: const TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(color: Color(0xFFadb5bd)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(color: Color(0xFFadb5bd)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(color: Color(0xFFadb5bd)),
+                    ),
+                    fillColor: const Color(0xFFf8f9fa),
+                    filled: true,
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    prefixIcon: const Icon(Icons.person),
+                    hintText: 'Ingresa tu usuario',
+                    hintStyle: const TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ],
+            )),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text("Contraseña",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF01395E))),
+              TextField(
+                controller: passwordControlled,
+                obscureText: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: const BorderSide(color: Color(0xFFadb5bd)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: const BorderSide(color: Color(0xFFadb5bd)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: const BorderSide(color: Color(0xFFadb5bd)),
+                  ),
+                  fillColor: const Color(0xFFf8f9fa),
+                  filled: true,
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  prefixIcon: const Icon(Icons.key),
+                  hintText: 'Ingresa tu contraseña',
+                  hintStyle: const TextStyle(
+                      color: Colors.grey, fontWeight: FontWeight.w400),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 50),
+            child: ElevatedButton(
+                onPressed: () {
+                  makeLogin();
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  backgroundColor: const Color(0xFF1282a2),
+                ),
+                child: const Text("Iniciar sesión", style: TextStyle(color: Color(0xFFffffff)),)))
+      ],
     );
   }
 }
